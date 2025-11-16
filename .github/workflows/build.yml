@@ -20,13 +20,13 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore
-        run: dotnet restore firsthello.csproj
+        run: dotnet restore firsthello/firsthello/firsthello.csproj
 
       - name: Build
-        run: dotnet build firsthello.csproj --configuration Release
+        run: dotnet build firsthello/firsthello/firsthello.csproj --configuration Release
 
       - name: Publish App
-        run: dotnet publish firsthello.csproj -c Release -o output
+        run: dotnet publish firsthello/firsthello/firsthello.csproj -c Release -o output
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
