@@ -1,0 +1,35 @@
+name: Build WPF App
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore firsthello.csproj
+
+      - name: Build
+        run: dotnet build firsthello.csproj --configuration Release
+
+      - name: Publish App
+        run: dotnet publish firsthello.csproj -c Release -o output
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: WPF-Build
+          path: output/
